@@ -1,0 +1,4 @@
+export const TOGGLE_SHIP_DIRECTION = 'TOGGLE_SHIP_DIRECTION';
+export const PLACE_SHIP = 'PLACE_SHIP';
+export const UNPLACE_SHIP = 'UNPLACE_SHIP';
+export const START_GAME = 'START_GAME';
