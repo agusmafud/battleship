@@ -2,10 +2,10 @@ import {
   START_GAME,
 } from 'store/actionTypes';
 
-const initialState = [{
+const initialState = {
   board: undefined,
   ships: undefined,
-}];
+};
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {

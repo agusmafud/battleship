@@ -7,9 +7,9 @@ import {
   GAME_SCREEN,
 } from 'utils/constants';
 
-const initialState = [{
+const initialState = {
   activeScreen: START_SCREEN,
-}];
+};
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {

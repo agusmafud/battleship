@@ -17,11 +17,11 @@ import {
   updateBoard,
 } from 'utils/helpers';
 
-const initialState = [{
+const initialState = {
   name: '',
   board: createEmptyBoard(),
   ships: shipsInitialSetting,
-}];
+};
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
