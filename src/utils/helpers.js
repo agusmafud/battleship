@@ -30,9 +30,9 @@ export const toggleShipDirection = (ships, shipId) => (
     }
     : ship))
 );
-export const placeShip = (ships, shipId, spacesCoordinates) => (
+export const placeShip = (ships, shipId, spacesAssigned) => (
   ships.map((ship) => (ship.id === shipId
-    ? { ...ship, spacesCoordinates }
+    ? { ...ship, spacesAssigned }
     : ship))
 );
 export const unplaceShip = (ships, shipId) => (
@@ -76,6 +76,7 @@ export const updateBoard = (board, spacesCoordinates, spaceStatus) => {
   for (let index = 0; index < spacesCoordinates.length; index += 1) {
     newBoard[spacesCoordinates[index].i][spacesCoordinates[index].j].status = spaceStatus;
   }
+  return newBoard;
 };
 
 export const getRandomInt = (min, max) => {

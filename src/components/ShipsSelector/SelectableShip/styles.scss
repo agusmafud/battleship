@@ -1,0 +1,52 @@
+.ship {
+  cursor: pointer;
+  width: 100px;
+  height: 100px;
+  position: relative;
+  box-sizing: border-box;
+  margin: 16px;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
+  color: #4a4a4a;
+
+  &:hover {
+    border: 1px solid #2e93cf;
+  }
+
+  &__rotate {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 6px;
+  }
+
+  &--SHIP_HORIZONTAL {
+    transform: rotate(0deg);
+    .ship {
+      &__rotate {
+        top: 6px;
+      }
+    }
+  }
+  
+  &--SHIP_VERTICAL {
+    transform: rotate(270deg);
+    .ship {
+      &__rotate {
+        bottom: 6px;
+      }
+    }
+  }
+
+  &--selected {
+    border: 3px solid #2e93cf;
+    &:hover {
+      border: 3px solid #2e93cf;
+    }
+  }
+}

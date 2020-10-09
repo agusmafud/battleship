@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 
 import { shipPropTypes } from 'utils/propTypesConstants';
 
+import SelectableShip from './SelectableShip';
+import './styles.scss';
+
 const ShipsSelector = ({
   shipsUnplaced,
   handleToggleShipDirection,
@@ -10,7 +13,15 @@ const ShipsSelector = ({
   handleChangeShipSelected,
 }) => (
   <div className="ships-selector">
-    ShipsSelector
+    {shipsUnplaced.sort((a, b) => b.spaces - a.spaces).map((ship) => (
+      <SelectableShip
+        key={ship.id}
+        ship={ship}
+        handleToggleShipDirection={handleToggleShipDirection}
+        selected={!(shipSelectedId === undefined) && ship.id === shipSelectedId}
+        handleChangeShipSelected={handleChangeShipSelected}
+      />
+    ))}
   </div>
 );
 
