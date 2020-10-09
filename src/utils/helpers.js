@@ -125,7 +125,7 @@ export const createComputer = () => {
       computerBoard[spaces[spaceIndex].i][spaces[spaceIndex].j].status = OK_SHIP_SPACE;
     }
     computerShips[shipIndex].direction = randomDirection;
-    computerShips[shipIndex].spacesAssigned.push(...spaces);
+    computerShips[shipIndex].spacesAssigned = [...spaces];
   }
   return { computerBoard, computerShips };
 };

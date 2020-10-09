@@ -1,13 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './styles.scss';
+
 const PlayerNameInput = ({
   playerName,
   handleChangePlayerName,
 }) => (
-  <div>
-    PlayerNameInput
-  </div>
+  <input
+    className="player-name-input"
+    value={playerName}
+    type="text"
+    onChange={(e) => handleChangePlayerName(e.target.value)}
+  />
 );
 
 PlayerNameInput.propTypes = {
