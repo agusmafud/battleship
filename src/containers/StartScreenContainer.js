@@ -56,7 +56,7 @@ const StartScreenContainer = () => {
     <StartScreen
       playerName={playerName}
       board={board}
-      ships={shipsUnplaced}
+      shipsUnplaced={shipsUnplaced}
       shipSelectedId={shipSelectedId}
       startGameEnabled={startGameEnabled}
       handleChangePlayerName={handleChangePlayerName}
