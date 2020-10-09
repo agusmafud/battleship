@@ -51,7 +51,6 @@ export const coordinatePropTypes = PropTypes.shape({
 export const shipPropTypes = PropTypes.shape({
   id: PropTypes.number.isRequired,
   type: shipTypesPropTypes.isRequired,
-  image: PropTypes.string.isRequired,
   direction: shipDirectiondsPropTypes.isRequired,
   spaces: PropTypes.number.isRequired,
   spacesAssigned: PropTypes.arrayOf(coordinatePropTypes).isRequired,
