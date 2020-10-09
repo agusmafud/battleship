@@ -41,11 +41,7 @@ const StartScreen = ({
         shipSelectedId={shipSelectedId}
         handleChangeShipSelected={handleChangeShipSelected}
       />
-      <Instructions
-        playerNameEntered={!!playerName}
-        shipsPlaced={!shipsUnplaced.length}
-        startGameEnabled={startGameEnabled}
-      />
+      <Instructions shipsPlaced={!shipsUnplaced.length} />
       <PlayerNameInput
         playerName={playerName}
         handleChangePlayerName={handleChangePlayerName}
