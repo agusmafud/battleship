@@ -11,9 +11,9 @@ import {
 import { shipsInitialSetting } from 'utils/config';
 import {
   createEmptyBoard,
-  toggleShipDirectionById,
-  placeShipById,
-  unplaceShipById,
+  toggleShipDirection,
+  placeShip,
+  unplaceShip,
   updateBoard,
 } from 'utils/helpers';
 
@@ -28,7 +28,7 @@ export default function reducer(state = initialState, action) {
     case TOGGLE_SHIP_DIRECTION: {
       const { shipId } = action.payload;
       const { ships } = state;
-      const newShips = toggleShipDirectionById(ships, shipId);
+      const newShips = toggleShipDirection(ships, shipId);
       return {
         ...state,
         ships: newShips,
@@ -38,7 +38,7 @@ export default function reducer(state = initialState, action) {
       const { shipId, spacesCoordinates } = action.payload;
       const { board, ships } = state;
       const newBoard = updateBoard(board, spacesCoordinates, OK_SHIP_SPACE);
-      const newShips = placeShipById(ships, shipId, spacesCoordinates);
+      const newShips = placeShip(ships, shipId, spacesCoordinates);
       return {
         ...state,
         board: newBoard,
@@ -49,7 +49,7 @@ export default function reducer(state = initialState, action) {
       const { shipId, spacesCoordinates } = action.payload;
       const { board, ships } = state;
       const newBoard = updateBoard(board, spacesCoordinates, EMPTY_SPACE);
-      const newShips = unplaceShipById(ships, shipId);
+      const newShips = unplaceShip(ships, shipId);
       return {
         ...state,
         board: newBoard,
