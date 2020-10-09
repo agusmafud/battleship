@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import './styles.scss';
+import TextField from '@material-ui/core/TextField';
 
 const PlayerNameInput = ({
   playerName,
   handleChangePlayerName,
 }) => (
-  <input
-    className="player-name-input"
+  <TextField
+    id="player-name-input"
+    label="Enter Player name"
+    variant="outlined"
+    size="large"
     value={playerName}
-    type="text"
     onChange={(e) => handleChangePlayerName(e.target.value)}
   />
 );

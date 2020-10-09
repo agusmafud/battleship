@@ -44,7 +44,7 @@ const SelectableShip = ({
         alt="Rotate"
       />
     </div>
-    <span>{ship.id}</span>
+    <span>{`${ship.type}: ${ship.spaces} spaces`}</span>
   </div>
 );
 

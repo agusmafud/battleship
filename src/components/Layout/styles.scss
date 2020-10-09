@@ -1,0 +1,30 @@
+.layout {
+  background-color: #f5f5f5;
+  min-width: 300px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &__card {
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin: 64px;
+    padding: 32px;
+  }
+
+  &--compact {
+    .layout {
+      &__card {
+        margin: 32px;
+        flex-wrap: wrap;
+      }
+    }
+  }
+}

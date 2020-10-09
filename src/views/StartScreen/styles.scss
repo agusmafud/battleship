@@ -1,0 +1,12 @@
+.start-screen {
+  &__instructions-container {
+    padding-bottom: 32px;
+    text-align: center;
+  }
+  &__start-game-container {
+    max-width: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+}

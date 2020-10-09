@@ -17,7 +17,7 @@ const Instructions = ({
             Click on a ship to select it and then on the board for placing it.
           </li>
           <li className="instructions__list-item">
-            Click on a ship&apos;s rotation icon to change its orientation.
+            Click on a ship&apos;s rotation icon to change it&apos;s orientation.
           </li>
           <li className="instructions__list-item">
             To remove a ship, click on it&apos;s location on the board

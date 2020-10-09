@@ -6,12 +6,14 @@ import {
   shipPropTypes,
 } from 'utils/propTypesConstants';
 import Layout from 'components/Layout';
-import Column from 'components/Column';
+import Grid from '@material-ui/core/Grid';
 import Board from 'components/Board';
 import Instructions from 'components/Instructions';
 import ShipsSelector from 'components/ShipsSelector';
 import PlayerNameInput from 'components/PlayerNameInput';
 import StartGameCta from 'components/StartGameCta';
+
+import './styles.scss';
 
 const StartScreen = ({
   playerName,
@@ -25,32 +27,46 @@ const StartScreen = ({
   handleUnplaceShip,
   handleChangeShipSelected,
   handleStartGame,
+  compact,
 }) => (
-  <Layout>
-    <Column>
-      <Board
-        board={board}
-        handlePlaceShip={handlePlaceShip}
-        handleUnplaceShip={handleUnplaceShip}
-      />
-    </Column>
-    <Column>
-      <ShipsSelector
-        shipsUnplaced={shipsUnplaced}
-        handleToggleShipDirection={handleToggleShipDirection}
-        shipSelectedId={shipSelectedId}
-        handleChangeShipSelected={handleChangeShipSelected}
-      />
-      <Instructions shipsPlaced={!shipsUnplaced.length} />
-      <PlayerNameInput
-        playerName={playerName}
-        handleChangePlayerName={handleChangePlayerName}
-      />
-      <StartGameCta
-        handleStartGame={handleStartGame}
-        startGameEnabled={startGameEnabled}
-      />
-    </Column>
+  <Layout
+    className="start-screen"
+    compact={compact}
+  >
+    <Grid container>
+      <Grid
+        className="start-screen__instructions-container"
+        item
+        xs={12}
+      >
+        <Instructions shipsPlaced={!shipsUnplaced.length} />
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <Board
+          board={board}
+          handlePlaceShip={handlePlaceShip}
+          handleUnplaceShip={handleUnplaceShip}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <ShipsSelector
+          shipsUnplaced={shipsUnplaced}
+          handleToggleShipDirection={handleToggleShipDirection}
+          shipSelectedId={shipSelectedId}
+          handleChangeShipSelected={handleChangeShipSelected}
+        />
+        <div className="start-screen__start-game-container">
+          <PlayerNameInput
+            playerName={playerName}
+            handleChangePlayerName={handleChangePlayerName}
+          />
+          <StartGameCta
+            handleStartGame={handleStartGame}
+            startGameEnabled={startGameEnabled}
+          />
+        </div>
+      </Grid>
+    </Grid>
   </Layout>
 );
 
@@ -66,10 +82,12 @@ StartScreen.propTypes = {
   handleUnplaceShip: PropTypes.func.isRequired,
   handleChangeShipSelected: PropTypes.func.isRequired,
   handleStartGame: PropTypes.func.isRequired,
+  compact: PropTypes.bool,
 };
 
 StartScreen.defaultProps = {
   shipSelectedId: undefined,
+  compact: false,
 };
 
 export default StartScreen;

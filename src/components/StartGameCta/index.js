@@ -1,23 +1,20 @@
 import React from 'react';
-import cn from 'classnames';
 import PropTypes from 'prop-types';
-
-import './styles.scss';
+import Button from '@material-ui/core/Button';
 
 const StartGameCta = ({
   handleStartGame,
   startGameEnabled,
 }) => (
-  <button
-    className={cn(
-      'start-game-cta',
-      { 'start-game-cta--enabled': startGameEnabled },
-    )}
+  <Button
+    variant="contained"
+    size="large"
+    color="primary"
     disabled={!startGameEnabled}
     onClick={() => handleStartGame()}
   >
-    Start
-  </button>
+    Start game
+  </Button>
 );
 
 StartGameCta.propTypes = {

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -18,7 +19,7 @@ import {
 } from 'utils/helpers';
 import StartScreen from 'views/StartScreen';
 
-const StartScreenContainer = () => {
+const StartScreenContainer = ({ compact }) => {
   const dispatch = useDispatch();
   const ships = useSelector((state) => getPlayerShips(state));
   const board = useSelector((state) => getPlayerBoard(state));
@@ -65,8 +66,17 @@ const StartScreenContainer = () => {
       handleUnplaceShip={handleUnplaceShip}
       handleChangeShipSelected={handleChangeShipSelected}
       handleStartGame={handleStartGame}
+      compact={compact}
     />
   );
+};
+
+StartScreenContainer.propTypes = {
+  compact: PropTypes.bool,
+};
+
+StartScreenContainer.defaultProps = {
+  compact: false,
 };
 
 export default StartScreenContainer;
