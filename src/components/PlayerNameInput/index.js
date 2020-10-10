@@ -10,7 +10,6 @@ const PlayerNameInput = ({
     id="player-name-input"
     label="Enter Player name"
     variant="outlined"
-    size="large"
     value={playerName}
     onChange={(e) => handleChangePlayerName(e.target.value)}
   />

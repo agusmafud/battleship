@@ -14,6 +14,16 @@ import {
   SHIP_OK,
   SHIP_HIT,
   SHIP_DESTROYED,
+  START_SCREEN,
+  GAME_SCREEN,
+  END_GAME_SCREEN,
+  PLAYER,
+  COMPUTER,
+  COMPUTER_HUNT_MODE,
+  COMPUTER_TARGET_MODE,
+  ATTEMPT_FEEDBACK_SHIP_HIT,
+  ATTEMPT_FEEDBACK_SHIP_DESTROYED,
+  ATTEMPT_FEEDBACK_SHOT_MISSED,
 } from 'utils/constants';
 
 export const spaceStatusPropTypes = PropTypes.oneOf([
@@ -56,3 +66,34 @@ export const shipPropTypes = PropTypes.shape({
   spacesAssigned: PropTypes.arrayOf(coordinatePropTypes).isRequired,
   status: shipStatusPropTypes.isRequired,
 });
+
+export const activeScreenPropTypes = PropTypes.oneOf(
+  [START_SCREEN, GAME_SCREEN, END_GAME_SCREEN],
+);
+export const attemptFeedbackPropTypes = PropTypes.oneOf(
+  [ATTEMPT_FEEDBACK_SHIP_HIT, ATTEMPT_FEEDBACK_SHIP_DESTROYED, ATTEMPT_FEEDBACK_SHOT_MISSED],
+);
+export const playersPropTypes = PropTypes.oneOf(
+  [PLAYER, COMPUTER],
+);
+export const gamePropTypes = PropTypes.shape({
+  activeScreen: activeScreenPropTypes.isRequired,
+  attemptFeedback: attemptFeedbackPropTypes.isRequired,
+  turn: PropTypes.number.isRequired,
+  activePlayer: playersPropTypes.isRequired,
+});
+
+export const playerPropTypes = PropTypes.shape({
+  name: PropTypes.string.isRequired,
+  board: boardPropTypes.isRequired,
+  ships: PropTypes.arrayOf(shipPropTypes).isRequired,
+}).isRequired;
+
+export const attackModePropTypes = PropTypes.oneOf(
+  [COMPUTER_HUNT_MODE, COMPUTER_TARGET_MODE],
+);
+export const computerPropTypes = PropTypes.shape({
+  attackMode: attackModePropTypes.isRequired,
+  board: boardPropTypes.isRequired,
+  ships: PropTypes.arrayOf(shipPropTypes).isRequired,
+}).isRequired;

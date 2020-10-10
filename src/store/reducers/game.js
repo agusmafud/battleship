@@ -5,10 +5,14 @@ import {
 import {
   START_SCREEN,
   GAME_SCREEN,
+  PLAYER,
 } from 'utils/constants';
 
 const initialState = {
   activeScreen: START_SCREEN,
+  attemptFeedback: undefined,
+  turn: 1,
+  activePlayer: PLAYER,
 };
 
 export default function reducer(state = initialState, action) {
@@ -17,6 +21,9 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         activeScreen: GAME_SCREEN,
+        attemptFeedback: undefined,
+        turn: 1,
+        activePlayer: PLAYER,
       };
     }
 

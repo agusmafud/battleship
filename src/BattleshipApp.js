@@ -6,8 +6,10 @@ import { useSelector } from 'react-redux';
 import { getActiveScreen } from 'store/selectors';
 import {
   START_SCREEN,
+  GAME_SCREEN,
 } from 'utils/constants';
 import StartScreenContainer from 'containers/StartScreenContainer';
+import GameScreenContainer from 'containers/GameScreenContainer';
 
 const BattleshipApp = () => {
   const theme = createMuiTheme({
@@ -23,6 +25,7 @@ const BattleshipApp = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       { activeScreen === START_SCREEN && <StartScreenContainer compact={compact} /> }
+      { activeScreen === GAME_SCREEN && <GameScreenContainer compact={compact} /> }
     </ThemeProvider>
   );
 };

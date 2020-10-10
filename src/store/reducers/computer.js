@@ -1,8 +1,10 @@
 import {
   START_GAME,
+  COMPUTER_HUNT_MODE,
 } from 'store/actionTypes';
 
 const initialState = {
+  attackMode: COMPUTER_HUNT_MODE,
   board: undefined,
   ships: undefined,
 };
@@ -13,6 +15,7 @@ export default function reducer(state = initialState, action) {
       const { computer } = action.payload;
       return {
         ...state,
+        attackMode: COMPUTER_HUNT_MODE,
         ...computer,
       };
     }
