@@ -16,11 +16,15 @@ export const DESTROYED_SHIP_SPACE = 'DESTROYED_SHIP_SPACE';
 export const SHOT_MISSED_SPACE = 'SHOT_MISSED_SPACE';
 export const UNKNOWN_SPACE = 'UNKNOWN_SPACE';
 
-/* GAME SCREENS */
+/* GAME */
 export const START_SCREEN = 'START_SCREEN';
 export const GAME_SCREEN = 'GAME_SCREEN';
 export const END_GAME_SCREEN = 'END_GAME_SCREEN';
+export const PLAYER_WON = 'PLAYER_WON';
+export const PLAYER_LOST = 'PLAYER_LOST';
+export const PLAYER_SURRENDERED = 'PLAYER_SURRENDERED';
 
+/* PLAYERS */
 export const PLAYER = 'PLAYER';
 export const COMPUTER = 'COMPUTER';
 export const COMPUTER_HUNT_MODE = 'COMPUTER_HUNT_MODE';

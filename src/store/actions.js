@@ -3,6 +3,10 @@ import {
   PLACE_SHIP,
   UNPLACE_SHIP,
   START_GAME,
+  SURRENDER,
+  END_GAME,
+  PLAYER_MISSILE_LAUNCH,
+  COMPUTER_MISSILE_LAUNCH,
 } from './actionTypes';
 
 export const toggleShipDirection = (shipId) => ({
@@ -23,4 +27,34 @@ export const unplaceShip = (shipId, spacesCoordinates) => ({
 export const startGame = (playerName, computer) => ({
   type: START_GAME,
   payload: { playerName, computer },
+});
+
+export const surrender = (turn) => ({
+  type: SURRENDER,
+  payload: { turn },
+});
+
+export const endGame = (gameResult) => ({
+  type: END_GAME,
+  payload: { gameResult },
+});
+
+export const playerMissileLaunch = (newPlayerBoard, newPlayerShips, computerAttemptFeedback) => ({
+  type: PLAYER_MISSILE_LAUNCH,
+  payload: { newPlayerBoard, newPlayerShips, computerAttemptFeedback },
+});
+
+export const computerMissileLaunch = (
+  newComputerBoard,
+  newComputerShips,
+  playerAttemptFeedback,
+  attackMode,
+) => ({
+  type: COMPUTER_MISSILE_LAUNCH,
+  payload: {
+    newComputerBoard,
+    newComputerShips,
+    playerAttemptFeedback,
+    attackMode,
+  },
 });

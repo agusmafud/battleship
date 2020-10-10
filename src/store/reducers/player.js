@@ -3,6 +3,7 @@ import {
   PLACE_SHIP,
   UNPLACE_SHIP,
   START_GAME,
+  COMPUTER_MISSILE_LAUNCH,
 } from 'store/actionTypes';
 import {
   EMPTY_SPACE,
@@ -62,6 +63,15 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         name: playerName,
+      };
+    }
+
+    case COMPUTER_MISSILE_LAUNCH: {
+      const { newPlayerBoard, newPlayerShips } = action.payload;
+      return {
+        ...state,
+        board: newPlayerBoard,
+        ships: newPlayerShips,
       };
     }
     default: return state;

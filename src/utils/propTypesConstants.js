@@ -70,15 +70,20 @@ export const shipPropTypes = PropTypes.shape({
 export const activeScreenPropTypes = PropTypes.oneOf(
   [START_SCREEN, GAME_SCREEN, END_GAME_SCREEN],
 );
-export const attemptFeedbackPropTypes = PropTypes.oneOf(
+export const attemptFeedbackStatusPropTypes = PropTypes.oneOf(
   [ATTEMPT_FEEDBACK_SHIP_HIT, ATTEMPT_FEEDBACK_SHIP_DESTROYED, ATTEMPT_FEEDBACK_SHOT_MISSED],
 );
+export const attemptFeedbackPropTypes = PropTypes.shape({
+  status: attemptFeedbackStatusPropTypes.isRequired,
+  coordinate: coordinatePropTypes.isRequired,
+});
 export const playersPropTypes = PropTypes.oneOf(
   [PLAYER, COMPUTER],
 );
 export const gamePropTypes = PropTypes.shape({
   activeScreen: activeScreenPropTypes.isRequired,
-  attemptFeedback: attemptFeedbackPropTypes.isRequired,
+  playerAttemptFeedback: attemptFeedbackPropTypes.isRequired,
+  computerAttemptFeedback: attemptFeedbackPropTypes.isRequired,
   turn: PropTypes.number.isRequired,
   activePlayer: playersPropTypes.isRequired,
 });

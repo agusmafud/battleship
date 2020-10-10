@@ -14,7 +14,7 @@ const GameScreen = ({
   game,
   player,
   computer,
-  handleAdvanceTurn,
+  handlePlayerMissileAttack,
   handleSurrender,
   compact,
 }) => (
@@ -30,7 +30,7 @@ GameScreen.propTypes = {
   game: gamePropTypes.isRequired,
   player: playerPropTypes.isRequired,
   computer: computerPropTypes.isRequired,
-  handleAdvanceTurn: PropTypes.func.isRequired,
+  handlePlayerMissileAttack: PropTypes.func.isRequired,
   handleSurrender: PropTypes.func.isRequired,
   compact: PropTypes.bool,
 };
