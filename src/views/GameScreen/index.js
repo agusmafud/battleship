@@ -7,6 +7,9 @@ import {
   computerPropTypes,
 } from 'utils/propTypesConstants';
 import Layout from 'components/Layout';
+import Grid from '@material-ui/core/Grid';
+import Board from 'components/Board';
+import StatusBar from 'components/StatusBar';
 
 import './styles.scss';
 
@@ -22,7 +25,27 @@ const GameScreen = ({
     className="game-screen"
     compact={compact}
   >
-    GameScreen
+    <Grid container>
+      <Grid item xs={12} sm={6}>
+        <Board board={player.board} />
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <Board
+          computerBoard
+          board={computer.board}
+          handlePlayerMissileAttack={handlePlayerMissileAttack}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <StatusBar
+          playerAttemptFeedback={game.playerAttemptFeedback}
+          computerAttemptFeedback={game.computerAttemptFeedback}
+          turn={game.turn}
+          activePlayer={game.activePlayer}
+          handleSurrender={handleSurrender}
+        />
+      </Grid>
+    </Grid>
   </Layout>
 );
 

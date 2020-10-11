@@ -43,6 +43,7 @@ const StartScreen = ({
       </Grid>
       <Grid item xs={12} sm={6}>
         <Board
+          editableBoard
           board={board}
           handlePlaceShip={handlePlaceShip}
           handleUnplaceShip={handleUnplaceShip}

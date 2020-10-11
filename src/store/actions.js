@@ -39,21 +39,25 @@ export const endGame = (gameResult) => ({
   payload: { gameResult },
 });
 
-export const playerMissileLaunch = (newPlayerBoard, newPlayerShips, computerAttemptFeedback) => ({
+export const playerMissileLaunch = (
+  newComputerBoard,
+  newComputerShips,
+  computerAttemptFeedback,
+) => ({
   type: PLAYER_MISSILE_LAUNCH,
-  payload: { newPlayerBoard, newPlayerShips, computerAttemptFeedback },
+  payload: { newComputerBoard, newComputerShips, computerAttemptFeedback },
 });
 
 export const computerMissileLaunch = (
-  newComputerBoard,
-  newComputerShips,
+  newPlayerBoard,
+  newPlayerShips,
   playerAttemptFeedback,
   attackMode,
 ) => ({
   type: COMPUTER_MISSILE_LAUNCH,
   payload: {
-    newComputerBoard,
-    newComputerShips,
+    newPlayerBoard,
+    newPlayerShips,
     playerAttemptFeedback,
     attackMode,
   },

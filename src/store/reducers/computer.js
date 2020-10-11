@@ -1,9 +1,12 @@
 import {
   START_GAME,
-  COMPUTER_HUNT_MODE,
   COMPUTER_MISSILE_LAUNCH,
   PLAYER_MISSILE_LAUNCH,
 } from 'store/actionTypes';
+
+import {
+  COMPUTER_HUNT_MODE,
+} from 'utils/constants';
 
 const initialState = {
   attackMode: COMPUTER_HUNT_MODE,
