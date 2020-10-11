@@ -9,21 +9,21 @@ import {
 const submarineInitialSetting = {
   type: SUBMARINE,
   direction: SHIP_HORIZONTAL,
-  spaces: 2,
+  spacesLeft: 2,
   spacesAssigned: [],
   status: SHIP_OK,
 };
 const cruiserInitialSetting = {
   type: CRUISER,
   direction: SHIP_HORIZONTAL,
-  spaces: 3,
+  spacesLeft: 3,
   spacesAssigned: [],
   status: SHIP_OK,
 };
 const carrierInitialSetting = {
   type: CARRIER,
   direction: SHIP_HORIZONTAL,
-  spaces: 4,
+  spacesLeft: 4,
   spacesAssigned: [],
   status: SHIP_OK,
 };

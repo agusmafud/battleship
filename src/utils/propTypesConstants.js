@@ -21,9 +21,6 @@ import {
   COMPUTER,
   COMPUTER_HUNT_MODE,
   COMPUTER_TARGET_MODE,
-  ATTEMPT_FEEDBACK_SHIP_HIT,
-  ATTEMPT_FEEDBACK_SHIP_DESTROYED,
-  ATTEMPT_FEEDBACK_SHOT_MISSED,
 } from 'utils/constants';
 
 export const spaceStatusPropTypes = PropTypes.oneOf([
@@ -62,7 +59,7 @@ export const shipPropTypes = PropTypes.shape({
   id: PropTypes.number.isRequired,
   type: shipTypesPropTypes.isRequired,
   direction: shipDirectiondsPropTypes.isRequired,
-  spaces: PropTypes.number.isRequired,
+  spacesLeft: PropTypes.number.isRequired,
   spacesAssigned: PropTypes.arrayOf(coordinatePropTypes).isRequired,
   status: shipStatusPropTypes.isRequired,
 });
@@ -71,11 +68,12 @@ export const activeScreenPropTypes = PropTypes.oneOf(
   [START_SCREEN, GAME_SCREEN, END_GAME_SCREEN],
 );
 export const attemptFeedbackStatusPropTypes = PropTypes.oneOf(
-  [ATTEMPT_FEEDBACK_SHIP_HIT, ATTEMPT_FEEDBACK_SHIP_DESTROYED, ATTEMPT_FEEDBACK_SHOT_MISSED],
+  [HIT_SHIP_SPACE, DESTROYED_SHIP_SPACE, SHOT_MISSED_SPACE],
 );
 export const attemptFeedbackPropTypes = PropTypes.shape({
   status: attemptFeedbackStatusPropTypes.isRequired,
   coordinate: coordinatePropTypes.isRequired,
+  sunkenShip: shipTypesPropTypes,
 });
 export const playersPropTypes = PropTypes.oneOf(
   [PLAYER, COMPUTER],

@@ -3,6 +3,9 @@ import {
   SHIP_HORIZONTAL,
   SHIP_VERTICAL,
   OK_SHIP_SPACE,
+  HIT_SHIP_SPACE,
+  DESTROYED_SHIP_SPACE,
+  SHOT_MISSED_SPACE,
 } from 'utils/constants';
 import { shipsInitialSetting } from 'utils/config';
 
@@ -91,11 +94,11 @@ export const getBoardAvailablePosition = (board, ship, direction) => {
 
   while (!spacesCoordinates.length) {
     do {
-      i = direction === SHIP_VERTICAL ? getRandomInt(0, 9 - ship.spaces) : getRandomInt(0, 9);
-      j = direction === SHIP_HORIZONTAL ? getRandomInt(0, 9 - ship.spaces) : getRandomInt(0, 9);
+      i = direction === SHIP_VERTICAL ? getRandomInt(0, 9 - ship.spacesLeft) : getRandomInt(0, 9);
+      j = direction === SHIP_HORIZONTAL ? getRandomInt(0, 9 - ship.spacesLeft) : getRandomInt(0, 9);
     } while (board[i][j].status !== EMPTY_SPACE);
 
-    for (let index = 0; index < ship.spaces; index += 1) {
+    for (let index = 0; index < ship.spacesLeft; index += 1) {
       if (board[i][j].status !== EMPTY_SPACE) {
         spacesCoordinates = [];
         break;
@@ -128,4 +131,73 @@ export const createComputer = () => {
     computerShips[shipIndex].spacesAssigned = [...spaces];
   }
   return { computerBoard, computerShips };
+};
+
+const hitShipsByCoordinate = (ships, hitCoordinates) => {
+  let response = {
+    attemptFeedback: {
+      status: SHOT_MISSED_SPACE,
+      coordinate: hitCoordinates,
+      sunkenShip: null,
+    },
+    alteredCoordinates: [hitCoordinates],
+    newShips: [],
+  };
+  for (let shipsI = 0; shipsI < ships.length; shipsI += 1) {
+    const spaceI = ships[shipsI].spacesAssigned.findIndex(
+      (space) => areEqualCoordinates(space, hitCoordinates),
+    );
+    if (spaceI === -1) {
+      response = {
+        ...response,
+        newShips: [...response.newShips, ships[shipsI]],
+      };
+    } else {
+      response = {
+        attemptFeedback: {
+          ...response.attemptFeedback,
+          status: ships[shipsI].spacesLeft === 1 ? DESTROYED_SHIP_SPACE : HIT_SHIP_SPACE,
+          sunkenShip: ships[shipsI].spacesLeft === 1 ? ships[shipsI].type : null,
+        },
+        alteredCoordinates:
+          ships[shipsI].spacesLeft === 1
+            ? ships[shipsI].spacesAssigned
+            : [hitCoordinates],
+        newShips: [
+          ...response.newShips,
+          { ...ships[shipsI], spaces: ships[shipsI].spacesLeft - 1 },
+        ],
+      };
+      break;
+    }
+  }
+  return response;
+};
+
+export const launchPlayerMissile = (board, ships, spaceCoordinates) => {
+  const {
+    attemptFeedback,
+    alteredCoordinates,
+    newShips,
+  } = hitShipsByCoordinate(ships, spaceCoordinates);
+  const newBoard = updateBoard(board, alteredCoordinates, attemptFeedback.status);
+  return { newBoard, newShips, attemptFeedback };
+};
+
+const calculateAttackPosition = (board, attackMode) => {};
+
+export const launchComputerMissile = (board, ships, attackMode) => {
+  const { spaceCoordinates, newAttackMode } = calculateAttackPosition(board, attackMode);
+  const {
+    attemptFeedback,
+    alteredCoordinates,
+    newShips,
+  } = hitShipsByCoordinate(ships, spaceCoordinates);
+  const newBoard = updateBoard(board, alteredCoordinates, attemptFeedback.status);
+  return {
+    newBoard,
+    newShips,
+    attemptFeedback,
+    newAttackMode,
+  };
 };

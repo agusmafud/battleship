@@ -39,18 +39,22 @@ const GameScreenContainer = ({ compact }) => {
         newShips,
         attemptFeedback,
         attackMode,
-      } = launchComputerMissile();
+      } = launchComputerMissile(player.board, player.ships, computer.attackMode);
       dispatch(computerMissileLaunch(newBoard, newShips, attemptFeedback, attackMode));
     }
   }, [
-    computer.ships.length,
-    player.ships.length,
+    computer,
+    player,
     game.activePlayer,
     dispatch,
   ]);
 
   const handlePlayerMissileAttack = (spaceCoordinates) => {
-    const { newBoard, newShips, attemptFeedback } = launchPlayerMissile(spaceCoordinates);
+    const { newBoard, newShips, attemptFeedback } = launchPlayerMissile(
+      computer.board,
+      computer.ships,
+      spaceCoordinates,
+    );
     dispatch(playerMissileLaunch(newBoard, newShips, attemptFeedback));
   };
   const handleSurrender = () => dispatch(surrender(game.turn));

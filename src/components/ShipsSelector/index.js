@@ -13,7 +13,7 @@ const ShipsSelector = ({
   handleChangeShipSelected,
 }) => (
   <div className="ships-selector">
-    {shipsUnplaced.sort((a, b) => b.spaces - a.spaces).map((ship) => (
+    {shipsUnplaced.sort((a, b) => b.spacesLeft - a.spacesLeft).map((ship) => (
       <SelectableShip
         key={ship.id}
         ship={ship}
