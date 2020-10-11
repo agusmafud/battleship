@@ -11,7 +11,7 @@ import {
 } from 'utils/constants';
 import { shipsInitialSetting } from 'utils/config';
 
-export const createEmptyBoard = () => {
+export const createEmptyBoard = (heatMap = false) => {
   const emptyBoard = [];
   for (let i = 0; i < 10; i += 1) {
     emptyBoard.push([]);
@@ -20,7 +20,7 @@ export const createEmptyBoard = () => {
       emptyBoard[i][j] = {
         i,
         j,
-        status: EMPTY_SPACE,
+        status: !heatMap ? EMPTY_SPACE : 0,
       };
     }
   }
@@ -46,29 +46,64 @@ export const unplaceShip = (ships, shipId) => (
     : ship))
 );
 
-export const canPlaceShip = (board, ships, spaceSelectedCoordinates, shipSelectedId) => {
+export const canPlaceShipbyDirection = (
+  board,
+  spaceSelectedCoordinates,
+  ship,
+  direction,
+  heatMap = false,
+) => {
   const spacesCoordinates = [];
-  if (shipSelectedId === undefined || !spaceSelectedCoordinates) {
-    return { shouldPlace: false, spacesCoordinates };
-  }
-  const shipSelected = ships.find((ship) => ship.id === shipSelectedId);
   let { i, j } = spaceSelectedCoordinates;
-  for (let index = 0; index < shipSelected.spacesLeft; index += 1) {
-    if (i < 0 || i > 9 || j < 0 || j > 9 || board[i][j].status !== EMPTY_SPACE) {
-      return { shouldPlace: false, spacesCoordinates: [] };
+  let hitShipSpaceCounter = 0;
+
+  const noFitCriteria = (status) => (
+    !heatMap
+      ? status !== EMPTY_SPACE
+      : status !== DESTROYED_SHIP_SPACE && status !== SHOT_MISSED_SPACE
+  );
+  const breakCondition = (index) => (
+    !heatMap
+      ? index < ship.spacesLeft
+      : index < ship.spacesAssigned.length && hitShipSpaceCounter < ship.spacesAssigned.length
+  );
+
+  for (let index = 0; breakCondition(index); index += 1) {
+    if (
+      i < 0 || i > 9
+      || j < 0 || j > 9
+      || noFitCriteria(board[i][j].status)
+    ) {
+      return { canPlace: false, spacesCoordinates: [] };
+    }
+    if (heatMap && board[i][j].status === HIT_SHIP_SPACE) {
+      hitShipSpaceCounter += 1;
     }
     spacesCoordinates.push({ i, j });
-    if (shipSelected.direction === SHIP_VERTICAL) {
+    if (direction === SHIP_VERTICAL) {
       i += 1;
     } else {
       j += 1;
     }
   }
-  return { shouldPlace: true, spacesCoordinates };
+  return { canPlace: true, spacesCoordinates };
 };
+
+export const canPlaceShipbyId = (board, ships, spaceSelectedCoordinates, shipId) => {
+  const ship = ships.find((s) => s.id === shipId);
+  const { canPlace, spacesCoordinates } = canPlaceShipbyDirection(
+    board,
+    spaceSelectedCoordinates,
+    ship,
+    ship.direction,
+  );
+  return { canPlace, spacesCoordinates };
+};
+
 export const areEqualCoordinates = (coordinate1, coordinate2) => (
   coordinate1.i === coordinate2.i && coordinate1.j === coordinate2.j
 );
+
 export const getUnplacedShipAndSpaces = (ships, spaceSelectedCoordinates) => {
   const ship = ships.find((s) => s.spacesAssigned.find(
     (space) => areEqualCoordinates(space, spaceSelectedCoordinates),

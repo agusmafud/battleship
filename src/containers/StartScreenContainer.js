@@ -13,7 +13,7 @@ import {
   startGame,
 } from 'store/actions';
 import {
-  canPlaceShip,
+  canPlaceShipbyId,
   getUnplacedShipAndSpaces,
   createComputer,
 } from 'utils/helpers';
@@ -35,9 +35,9 @@ const StartScreenContainer = ({ compact }) => {
   const handleChangeShipSelected = (shipId) => setShipSelected(shipId);
 
   const handlePlaceShip = (spaceSelectedCoordinates) => {
-    const { shouldPlace, spacesCoordinates } = (
-      canPlaceShip(board, ships, spaceSelectedCoordinates, shipSelectedId));
-    if (shouldPlace) {
+    const { canPlace, spacesCoordinates } = (
+      canPlaceShipbyId(board, ships, spaceSelectedCoordinates, shipSelectedId));
+    if (canPlace) {
       dispatch(placeShip(shipSelectedId, spacesCoordinates));
       setShipSelected(undefined);
     }

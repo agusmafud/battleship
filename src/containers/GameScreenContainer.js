@@ -38,9 +38,9 @@ const GameScreenContainer = ({ compact }) => {
         newBoard,
         newShips,
         attemptFeedback,
-        attackMode,
+        newAttackMode,
       } = launchComputerMissile(player.board, player.ships, computer.attackMode);
-      dispatch(computerMissileLaunch(newBoard, newShips, attemptFeedback, attackMode));
+      dispatch(computerMissileLaunch(newBoard, newShips, attemptFeedback, newAttackMode));
     }
   }, [
     computer,
