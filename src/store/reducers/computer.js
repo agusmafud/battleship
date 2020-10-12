@@ -3,15 +3,20 @@ import {
   COMPUTER_MISSILE_LAUNCH,
   PLAYER_MISSILE_LAUNCH,
 } from 'store/actionTypes';
-
 import {
   COMPUTER_HUNT_MODE,
 } from 'utils/constants';
+import { shipsInitialSetting } from 'utils/config';
+import {
+  createEmptyBoard,
+} from 'utils/helpers';
 
 const initialState = {
   attackMode: COMPUTER_HUNT_MODE,
   board: undefined,
   ships: undefined,
+  attackBoard: createEmptyBoard(true),
+  attackShips: shipsInitialSetting,
 };
 
 export default function reducer(state = initialState, action) {
@@ -25,10 +30,12 @@ export default function reducer(state = initialState, action) {
       };
     }
     case COMPUTER_MISSILE_LAUNCH: {
-      const { attackMode } = action.payload;
+      const { attackMode, newAttackBoard, newAttackShips } = action.payload;
       return {
         ...state,
         attackMode,
+        newAttackBoard,
+        newAttackShips,
       };
     }
     case PLAYER_MISSILE_LAUNCH: {

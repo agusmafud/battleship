@@ -53,6 +53,8 @@ export const computerMissileLaunch = (
   newPlayerShips,
   playerAttemptFeedback,
   attackMode,
+  newAttackBoard,
+  newAttackShips,
 ) => ({
   type: COMPUTER_MISSILE_LAUNCH,
   payload: {
@@ -60,5 +62,7 @@ export const computerMissileLaunch = (
     newPlayerShips,
     playerAttemptFeedback,
     attackMode,
+    newAttackBoard,
+    newAttackShips,
   },
 });

@@ -6,6 +6,7 @@ import {
   HIT_SHIP_SPACE,
   DESTROYED_SHIP_SPACE,
   SHOT_MISSED_SPACE,
+  UNKNOWN_SPACE,
   SHIP_HIT,
   SHIP_DESTROYED,
 } from 'utils/constants';
@@ -17,11 +18,11 @@ export const createEmptyBoard = (heatMap = false) => {
     emptyBoard.push([]);
     emptyBoard[i].push(new Array(10));
     for (let j = 0; j < 10; j += 1) {
-      emptyBoard[i][j] = {
-        i,
-        j,
-        status: !heatMap ? EMPTY_SPACE : 0,
-      };
+      emptyBoard[i][j] = !heatMap
+        ? { i, j, status: EMPTY_SPACE }
+        : {
+          i, j, status: UNKNOWN_SPACE, counter: 0,
+        };
     }
   }
   return emptyBoard;
@@ -60,12 +61,12 @@ export const canPlaceShipbyDirection = (
   const noFitCriteria = (status) => (
     !heatMap
       ? status !== EMPTY_SPACE
-      : status !== DESTROYED_SHIP_SPACE && status !== SHOT_MISSED_SPACE
+      : status === DESTROYED_SHIP_SPACE || status === SHOT_MISSED_SPACE
   );
   const breakCondition = (index) => (
     !heatMap
       ? index < ship.spacesLeft
-      : index < ship.spacesAssigned.length && hitShipSpaceCounter < ship.spacesAssigned.length
+      : index < ship.spacesLeft && hitShipSpaceCounter < ship.spacesLeft
   );
 
   for (let index = 0; breakCondition(index); index += 1) {
@@ -236,27 +237,87 @@ export const launchPlayerMissile = (board, ships, spaceCoordinates) => {
   return { newBoard, newShips, attemptFeedback };
 };
 
-const calculateAttackPosition = (board, attackMode) => {
-  const spaceCoordinates = { i: getRandomInt(0, 9), j: getRandomInt(0, 9) };
-  const newAttackMode = attackMode;
-  return {
-    spaceCoordinates,
-    newAttackMode,
-  };
+const createEmptyHeatMap = (attackBoard) => {
+  const heatMap = [];
+  for (let i = 0; i < 10; i += 1) {
+    heatMap.push([]);
+    heatMap[i].push(new Array(10));
+    for (let j = 0; j < 10; j += 1) {
+      heatMap[i][j] = { ...attackBoard[i][j], counter: 0 };
+    }
+  }
+  return heatMap;
 };
 
-export const launchComputerMissile = (board, ships, attackMode) => {
-  const { spaceCoordinates, newAttackMode } = calculateAttackPosition(board, attackMode);
+const calculateAttack = (attackBoard, attackShips) => {
+  const attack = {
+    highestValue: -1,
+    coordinate: { i: undefined, j: undefined },
+    heatMap: createEmptyHeatMap(attackBoard),
+  };
+  const updateAttack = (spacesCoordinates) => (
+    spacesCoordinates.forEach((coordinate) => {
+      const { i, j } = coordinate;
+      if (attackBoard[i][j].status === UNKNOWN_SPACE) {
+        attack.heatMap[i][j].counter += 1;
+      }
+      const value = attack.heatMap[i][j].counter;
+      if (value > attack.highestValue && attackBoard[i][j].status === UNKNOWN_SPACE) {
+        attack.highestValue = value;
+        attack.coordinate = { i, j };
+      }
+    })
+  );
+
+  attackShips.forEach((ship) => {
+    let i = 0;
+    let j = 0;
+    while (i < 10 || j < 10) {
+      const {
+        canPlace: canPlaceHorizontal,
+        spacesCoordinates: spacesCoordinatesHorizontal,
+      } = canPlaceShipbyDirection(attackBoard, { i, j }, ship, SHIP_HORIZONTAL, true);
+      const {
+        canPlace: canPlaceVertical,
+        spacesCoordinates: spacesCoordinatesVertical,
+      } = canPlaceShipbyDirection(attackBoard, { i, j }, ship, SHIP_VERTICAL, true);
+      if (canPlaceHorizontal) updateAttack(spacesCoordinatesHorizontal);
+      if (canPlaceVertical) updateAttack(spacesCoordinatesVertical);
+      if (j < 10) { j += 1; } else { i += 1; j = 0; }
+    }
+  });
+  const spaceCoordinates = { i: attack.coordinate.i, j: attack.coordinate.j };
+  return spaceCoordinates;
+};
+
+export const launchComputerMissile = (
+  playerBoard,
+  playerShips,
+  attackMode,
+  attackBoard,
+  attackShips,
+) => {
+  const spaceCoordinates = calculateAttack(attackBoard, attackShips, attackMode);
   const {
     attemptFeedback,
     alteredCoordinates,
     newShips,
-  } = hitShipsByCoordinate(ships, spaceCoordinates);
-  const newBoard = updateBoard(board, alteredCoordinates, attemptFeedback.status);
+  } = hitShipsByCoordinate(playerShips, spaceCoordinates);
+  const newBoard = updateBoard(playerBoard, alteredCoordinates, attemptFeedback.status);
+  const newAttackMode = attackMode;
+  const newAttackBoard = updateBoard(attackBoard, alteredCoordinates, attemptFeedback.status);
+  const newAttackShips = attemptFeedback.status !== DESTROYED_SHIP_SPACE
+    ? attackShips
+    : attackShips.splice(
+      attackShips.findIndex((s) => s.spacesLeft === alteredCoordinates.length),
+      1,
+    );
   return {
     newBoard,
     newShips,
     attemptFeedback,
     newAttackMode,
+    newAttackBoard,
+    newAttackShips,
   };
 };
