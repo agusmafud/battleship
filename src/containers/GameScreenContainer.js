@@ -16,11 +16,13 @@ import {
 import {
   launchPlayerMissile,
   launchComputerMissile,
+  shipsAnySpaceLeft,
 } from 'utils/helpers';
 import {
   COMPUTER,
   PLAYER_WON,
   PLAYER_LOST,
+  GAME_SCREEN,
 } from 'utils/constants';
 import GameScreen from 'views/GameScreen';
 
@@ -31,9 +33,14 @@ const GameScreenContainer = ({ compact }) => {
   const computer = useSelector((state) => getComputer(state));
 
   useEffect(() => {
-    if (!computer.ships.length) dispatch(endGame(PLAYER_WON));
-    if (!player.ships.length) dispatch(endGame(PLAYER_LOST));
-    if (game.activePlayer === COMPUTER && computer.ships.length) {
+    if (game.activeScreen === GAME_SCREEN && !shipsAnySpaceLeft(computer.ships)) {
+      dispatch(endGame(PLAYER_WON));
+    }
+    if (game.activeScreen === GAME_SCREEN && !shipsAnySpaceLeft(player.ships)) {
+      dispatch(endGame(PLAYER_LOST));
+    }
+
+    if (game.activePlayer === COMPUTER && shipsAnySpaceLeft(computer.ships)) {
       const {
         newBoard,
         newShips,
@@ -61,6 +68,7 @@ const GameScreenContainer = ({ compact }) => {
     computer,
     player,
     game.activePlayer,
+    game.activeScreen,
     dispatch,
   ]);
 

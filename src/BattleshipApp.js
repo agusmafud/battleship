@@ -7,9 +7,11 @@ import { getActiveScreen } from 'store/selectors';
 import {
   START_SCREEN,
   GAME_SCREEN,
+  END_GAME_SCREEN,
 } from 'utils/constants';
 import StartScreenContainer from 'containers/StartScreenContainer';
 import GameScreenContainer from 'containers/GameScreenContainer';
+import EndGameScreenContainer from 'containers/EndGameScreenContainer';
 
 const BattleshipApp = () => {
   const theme = createMuiTheme({
@@ -26,6 +28,7 @@ const BattleshipApp = () => {
       <CssBaseline />
       { activeScreen === START_SCREEN && <StartScreenContainer compact={compact} /> }
       { activeScreen === GAME_SCREEN && <GameScreenContainer compact={compact} /> }
+      { activeScreen === END_GAME_SCREEN && <EndGameScreenContainer compact={compact} /> }
     </ThemeProvider>
   );
 };

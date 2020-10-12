@@ -6,32 +6,24 @@ import {
   SHIP_HORIZONTAL,
 } from 'utils/constants';
 
-const submarineInitialSetting = {
+export const submarineInitialSetting = {
   type: SUBMARINE,
   direction: SHIP_HORIZONTAL,
   spacesLeft: 2,
   spacesAssigned: [],
   status: SHIP_OK,
 };
-const cruiserInitialSetting = {
+export const cruiserInitialSetting = {
   type: CRUISER,
   direction: SHIP_HORIZONTAL,
   spacesLeft: 3,
   spacesAssigned: [],
   status: SHIP_OK,
 };
-const carrierInitialSetting = {
+export const carrierInitialSetting = {
   type: CARRIER,
   direction: SHIP_HORIZONTAL,
   spacesLeft: 4,
   spacesAssigned: [],
   status: SHIP_OK,
 };
-
-export const shipsInitialSetting = [
-  { id: 0, ...submarineInitialSetting },
-  { id: 1, ...cruiserInitialSetting },
-  { id: 2, ...cruiserInitialSetting },
-  { id: 3, ...cruiserInitialSetting },
-  { id: 4, ...carrierInitialSetting },
-];

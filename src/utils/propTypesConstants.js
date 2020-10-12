@@ -88,7 +88,7 @@ export const gamePropTypes = PropTypes.shape({
   computerAttemptFeedback: attemptFeedbackPropTypes,
   turn: PropTypes.number.isRequired,
   activePlayer: playersTypePropTypes.isRequired,
-  gameResult: gameResultPropTypes,
+  result: gameResultPropTypes,
 });
 
 export const playerPropTypes = PropTypes.shape({

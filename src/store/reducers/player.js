@@ -4,14 +4,15 @@ import {
   UNPLACE_SHIP,
   START_GAME,
   COMPUTER_MISSILE_LAUNCH,
+  RESTART_GAME,
 } from 'store/actionTypes';
 import {
   EMPTY_SPACE,
   OK_SHIP_SPACE,
 } from 'utils/constants';
-import { shipsInitialSetting } from 'utils/config';
 import {
   createEmptyBoard,
+  createShipsInitialSetting,
   toggleShipDirection,
   placeShip,
   unplaceShip,
@@ -21,7 +22,7 @@ import {
 const initialState = {
   name: '',
   board: createEmptyBoard(),
-  ships: shipsInitialSetting,
+  ships: createShipsInitialSetting(),
 };
 
 export default function reducer(state = initialState, action) {
@@ -72,6 +73,16 @@ export default function reducer(state = initialState, action) {
         ...state,
         board: newPlayerBoard,
         ships: newPlayerShips,
+      };
+    }
+
+    case RESTART_GAME: {
+      const newBoard = createEmptyBoard();
+      const newShips = createShipsInitialSetting();
+      return {
+        name: '',
+        board: newBoard,
+        ships: newShips,
       };
     }
     default: return state;

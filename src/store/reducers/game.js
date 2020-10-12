@@ -4,6 +4,7 @@ import {
   END_GAME,
   PLAYER_MISSILE_LAUNCH,
   COMPUTER_MISSILE_LAUNCH,
+  RESTART_GAME,
 } from 'store/actionTypes';
 
 import {
@@ -21,7 +22,7 @@ const initialState = {
   computerAttemptFeedback: undefined,
   turn: 1,
   activePlayer: PLAYER,
-  gameResult: undefined,
+  result: undefined,
 };
 
 export default function reducer(state = initialState, action) {
@@ -29,36 +30,30 @@ export default function reducer(state = initialState, action) {
     case START_GAME: {
       return {
         ...state,
+        ...initialState,
         activeScreen: GAME_SCREEN,
-        playerAttemptFeedback: undefined,
-        computerAttemptFeedback: undefined,
-        turn: 1,
-        activePlayer: PLAYER,
-        gameResult: undefined,
       };
     }
     case SURRENDER: {
       return {
         ...state,
         activeScreen: END_GAME_SCREEN,
-        gameResult: PLAYER_SURRENDERED,
+        result: PLAYER_SURRENDERED,
       };
     }
     case END_GAME: {
-      const { gameResult } = action.payload;
+      const { result } = action.payload;
       return {
         ...state,
         activeScreen: END_GAME_SCREEN,
-        gameResult,
+        result,
       };
     }
     case PLAYER_MISSILE_LAUNCH: {
       const { playerAttemptFeedback } = action.payload;
-      const { turn } = state;
       return {
         ...state,
         playerAttemptFeedback,
-        turn: turn + 1,
         activePlayer: COMPUTER,
       };
     }
@@ -73,6 +68,7 @@ export default function reducer(state = initialState, action) {
       };
     }
 
+    case RESTART_GAME: return initialState;
     default: return state;
   }
 }

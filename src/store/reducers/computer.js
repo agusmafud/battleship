@@ -2,13 +2,14 @@ import {
   START_GAME,
   COMPUTER_MISSILE_LAUNCH,
   PLAYER_MISSILE_LAUNCH,
+  RESTART_GAME,
 } from 'store/actionTypes';
 import {
   COMPUTER_HUNT_MODE,
 } from 'utils/constants';
-import { shipsInitialSetting } from 'utils/config';
 import {
   createEmptyBoard,
+  createShipsInitialSetting,
 } from 'utils/helpers';
 
 const initialState = {
@@ -16,7 +17,7 @@ const initialState = {
   board: undefined,
   ships: undefined,
   attackBoard: createEmptyBoard(true),
-  attackShips: shipsInitialSetting,
+  attackShips: createShipsInitialSetting(),
 };
 
 export default function reducer(state = initialState, action) {
@@ -46,6 +47,18 @@ export default function reducer(state = initialState, action) {
         ships: newComputerShips,
       };
     }
+    case RESTART_GAME: {
+      const newAttackBoard = createEmptyBoard(true);
+      const newAttackShips = createShipsInitialSetting();
+      return {
+        attackMode: COMPUTER_HUNT_MODE,
+        board: undefined,
+        ships: undefined,
+        attackBoard: newAttackBoard,
+        attackShips: newAttackShips,
+      };
+    }
+    case RESTART_GAME: return initialState;
     default: return state;
   }
 }

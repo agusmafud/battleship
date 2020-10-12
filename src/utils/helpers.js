@@ -10,7 +10,21 @@ import {
   SHIP_HIT,
   SHIP_DESTROYED,
 } from 'utils/constants';
-import { shipsInitialSetting } from 'utils/config';
+import {
+  submarineInitialSetting,
+  cruiserInitialSetting,
+  carrierInitialSetting,
+} from 'utils/config';
+
+export const createShipsInitialSetting = () => (
+  [
+    { id: 0, ...submarineInitialSetting },
+    { id: 1, ...cruiserInitialSetting },
+    { id: 2, ...cruiserInitialSetting },
+    { id: 3, ...cruiserInitialSetting },
+    { id: 4, ...carrierInitialSetting },
+  ]
+);
 
 export const createEmptyBoard = (heatMap = false) => {
   const emptyBoard = [];
@@ -154,7 +168,7 @@ export const getBoardAvailablePosition = (board, ship, direction) => {
 export const createComputer = () => {
   const directions = [SHIP_HORIZONTAL, SHIP_VERTICAL];
   const computerBoard = createEmptyBoard();
-  const computerShips = shipsInitialSetting;
+  const computerShips = createShipsInitialSetting();
 
   for (let shipIndex = 0; shipIndex < computerShips.length; shipIndex += 1) {
     const randomDirection = directions[getRandomInt(0, 1)];
@@ -321,3 +335,5 @@ export const launchComputerMissile = (
     newAttackShips,
   };
 };
+
+export const shipsAnySpaceLeft = (ships) => ships.filter((s) => s.spacesLeft > 0).length;

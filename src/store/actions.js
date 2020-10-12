@@ -7,6 +7,7 @@ import {
   END_GAME,
   PLAYER_MISSILE_LAUNCH,
   COMPUTER_MISSILE_LAUNCH,
+  RESTART_GAME,
 } from './actionTypes';
 
 export const toggleShipDirection = (shipId) => ({
@@ -34,9 +35,9 @@ export const surrender = (turn) => ({
   payload: { turn },
 });
 
-export const endGame = (gameResult) => ({
+export const endGame = (result) => ({
   type: END_GAME,
-  payload: { gameResult },
+  payload: { result },
 });
 
 export const playerMissileLaunch = (
@@ -65,4 +66,9 @@ export const computerMissileLaunch = (
     newAttackBoard,
     newAttackShips,
   },
+});
+
+export const restartGame = () => ({
+  type: RESTART_GAME,
+  payload: {},
 });
