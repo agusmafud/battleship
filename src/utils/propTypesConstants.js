@@ -5,6 +5,7 @@ import {
   HIT_SHIP_SPACE,
   DESTROYED_SHIP_SPACE,
   SHOT_MISSED_SPACE,
+  UNKNOWN_SPACE,
   CARRIER,
   CRUISER,
   SUBMARINE,
@@ -18,8 +19,6 @@ import {
   END_GAME_SCREEN,
   PLAYER,
   COMPUTER,
-  COMPUTER_HUNT_MODE,
-  COMPUTER_TARGET_MODE,
   PLAYER_WON,
   PLAYER_LOST,
   PLAYER_SURRENDERED,
@@ -31,6 +30,7 @@ export const spaceStatusPropTypes = PropTypes.oneOf([
   HIT_SHIP_SPACE,
   DESTROYED_SHIP_SPACE,
   SHOT_MISSED_SPACE,
+  UNKNOWN_SPACE,
 ]);
 
 export const boardSpacePropTypes = PropTypes.shape({
@@ -97,11 +97,10 @@ export const playerPropTypes = PropTypes.shape({
   ships: PropTypes.arrayOf(shipPropTypes).isRequired,
 });
 
-export const attackModePropTypes = PropTypes.oneOf(
-  [COMPUTER_HUNT_MODE, COMPUTER_TARGET_MODE],
-);
 export const computerPropTypes = PropTypes.shape({
-  attackMode: attackModePropTypes.isRequired,
+  targetedCoordinates: PropTypes.arrayOf(coordinatePropTypes),
   board: boardPropTypes.isRequired,
   ships: PropTypes.arrayOf(shipPropTypes).isRequired,
+  attackBoard: boardPropTypes.isRequired,
+  attackShips: PropTypes.arrayOf(shipPropTypes).isRequired,
 });

@@ -53,7 +53,7 @@ export const computerMissileLaunch = (
   newPlayerBoard,
   newPlayerShips,
   playerAttemptFeedback,
-  attackMode,
+  targetedCoordinates,
   newAttackBoard,
   newAttackShips,
 ) => ({
@@ -62,7 +62,7 @@ export const computerMissileLaunch = (
     newPlayerBoard,
     newPlayerShips,
     playerAttemptFeedback,
-    attackMode,
+    targetedCoordinates,
     newAttackBoard,
     newAttackShips,
   },

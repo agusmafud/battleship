@@ -45,13 +45,13 @@ const GameScreenContainer = ({ compact }) => {
         newBoard,
         newShips,
         attemptFeedback,
-        newAttackMode,
+        newTargetedCoordinates,
         newAttackBoard,
         newAttackShips,
       } = launchComputerMissile(
         player.board,
         player.ships,
-        computer.attackMode,
+        computer.targetedCoordinates,
         computer.attackBoard,
         computer.attackShips,
       );
@@ -59,7 +59,7 @@ const GameScreenContainer = ({ compact }) => {
         newBoard,
         newShips,
         attemptFeedback,
-        newAttackMode,
+        newTargetedCoordinates,
         newAttackBoard,
         newAttackShips,
       ));

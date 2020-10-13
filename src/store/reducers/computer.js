@@ -5,15 +5,12 @@ import {
   RESTART_GAME,
 } from 'store/actionTypes';
 import {
-  COMPUTER_HUNT_MODE,
-} from 'utils/constants';
-import {
   createEmptyBoard,
   createShipsInitialSetting,
 } from 'utils/helpers';
 
 const initialState = {
-  attackMode: COMPUTER_HUNT_MODE,
+  targetedCoordinates: [],
   board: undefined,
   ships: undefined,
   attackBoard: createEmptyBoard(true),
@@ -26,17 +23,16 @@ export default function reducer(state = initialState, action) {
       const { computer } = action.payload;
       return {
         ...state,
-        attackMode: COMPUTER_HUNT_MODE,
         ...computer,
       };
     }
     case COMPUTER_MISSILE_LAUNCH: {
-      const { attackMode, newAttackBoard, newAttackShips } = action.payload;
+      const { targetedCoordinates, newAttackBoard, newAttackShips } = action.payload;
       return {
         ...state,
-        attackMode,
-        newAttackBoard,
-        newAttackShips,
+        targetedCoordinates,
+        attackBoard: newAttackBoard,
+        attackShips: newAttackShips,
       };
     }
     case PLAYER_MISSILE_LAUNCH: {
@@ -51,14 +47,13 @@ export default function reducer(state = initialState, action) {
       const newAttackBoard = createEmptyBoard(true);
       const newAttackShips = createShipsInitialSetting();
       return {
-        attackMode: COMPUTER_HUNT_MODE,
+        targetedCoordinates: null,
         board: undefined,
         ships: undefined,
         attackBoard: newAttackBoard,
         attackShips: newAttackShips,
       };
     }
-    case RESTART_GAME: return initialState;
     default: return state;
   }
 }
