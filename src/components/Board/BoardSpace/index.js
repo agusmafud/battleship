@@ -11,22 +11,22 @@ import './styles.scss';
 
 const BoardSpace = ({
   space,
-  fog,
+  computerBoard,
   handleClick,
 }) => {
   const inputProps = handleClick && {
     'aria-label': 'Select',
     role: 'button',
     tabIndex: 0,
-    onClick: () => handleClick(space),
-    onKeyPress: () => handleClick(space),
+    onClick: () => handleClick(space, computerBoard),
+    onKeyPress: () => handleClick(space, computerBoard),
   };
   return (
     <div
       className={cn(
         'board-space',
-        { [`board-space--${space.status}`]: !fog || (fog && space.status !== OK_SHIP_SPACE) },
-        { [`board-space--${EMPTY_SPACE}`]: fog && space.status === OK_SHIP_SPACE },
+        { [`board-space--${space.status}`]: !computerBoard || (computerBoard && space.status !== OK_SHIP_SPACE) },
+        { [`board-space--${EMPTY_SPACE}`]: computerBoard && space.status === OK_SHIP_SPACE },
         { 'board-space--clickable': handleClick },
       )}
       {...(inputProps)}
@@ -36,11 +36,11 @@ const BoardSpace = ({
 
 BoardSpace.propTypes = {
   space: boardSpacePropTypes.isRequired,
-  fog: PropTypes.bool,
+  computerBoard: PropTypes.bool,
   handleClick: PropTypes.func,
 };
 BoardSpace.defaultProps = {
-  fog: false,
+  computerBoard: false,
   handleClick: undefined,
 };
 

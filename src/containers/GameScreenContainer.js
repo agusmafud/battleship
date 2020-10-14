@@ -23,6 +23,8 @@ import {
   PLAYER_WON,
   PLAYER_LOST,
   GAME_SCREEN,
+  EMPTY_SPACE,
+  OK_SHIP_SPACE,
 } from 'utils/constants';
 import GameScreen from 'views/GameScreen';
 
@@ -82,12 +84,22 @@ const GameScreenContainer = ({ compact }) => {
   };
   const handleSurrender = () => dispatch(surrender(game.turn));
 
+  const handleBoardClick = (space, computerBoard) => {
+    if (
+      computerBoard
+      && (space.status === EMPTY_SPACE || space.status === OK_SHIP_SPACE)
+    ) {
+      return handlePlayerMissileAttack({ i: space.i, j: space.j });
+    }
+    return null;
+  };
+
   return (
     <GameScreen
       game={game}
       player={player}
       computer={computer}
-      handlePlayerMissileAttack={handlePlayerMissileAttack}
+      handleBoardClick={handleBoardClick}
       handleSurrender={handleSurrender}
       compact={compact}
     />

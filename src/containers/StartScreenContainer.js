@@ -17,6 +17,9 @@ import {
   getUnplacedShipAndSpaces,
   createComputer,
 } from 'utils/helpers';
+import {
+  EMPTY_SPACE,
+} from 'utils/constants';
 import StartScreen from 'views/StartScreen';
 
 const StartScreenContainer = ({ compact }) => {
@@ -47,6 +50,12 @@ const StartScreenContainer = ({ compact }) => {
     dispatch(unplaceShip(shipId, spacesCoordinates));
   };
 
+  const handleBoardClick = (space) => (
+    space.status === EMPTY_SPACE
+      ? (shipSelectedId !== undefined) && handlePlaceShip({ i: space.i, j: space.j })
+      : handleUnplaceShip({ i: space.i, j: space.j })
+  );
+
   const handleStartGame = () => {
     const { computerBoard, computerShips } = createComputer();
     const computer = { board: computerBoard, ships: computerShips };
@@ -62,8 +71,7 @@ const StartScreenContainer = ({ compact }) => {
       startGameEnabled={startGameEnabled}
       handleChangePlayerName={handleChangePlayerName}
       handleToggleShipDirection={handleToggleShipDirection}
-      handlePlaceShip={handlePlaceShip}
-      handleUnplaceShip={handleUnplaceShip}
+      handleBoardClick={handleBoardClick}
       handleChangeShipSelected={handleChangeShipSelected}
       handleStartGame={handleStartGame}
       compact={compact}

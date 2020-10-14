@@ -17,7 +17,7 @@ const GameScreen = ({
   game,
   player,
   computer,
-  handlePlayerMissileAttack,
+  handleBoardClick,
   handleSurrender,
   compact,
 }) => {
@@ -40,7 +40,7 @@ const GameScreen = ({
           <Board
             computerBoard
             board={computer.board}
-            handlePlayerMissileAttack={handlePlayerMissileAttack}
+            handleBoardClick={handleBoardClick}
           />
         </Grid>
         <Grid item xs={12}>
@@ -55,13 +55,13 @@ const GameScreen = ({
       </Grid>
     </Layout>
   );
-}
+};
 
 GameScreen.propTypes = {
   game: gamePropTypes.isRequired,
   player: playerPropTypes.isRequired,
   computer: computerPropTypes.isRequired,
-  handlePlayerMissileAttack: PropTypes.func.isRequired,
+  handleBoardClick: PropTypes.func.isRequired,
   handleSurrender: PropTypes.func.isRequired,
   compact: PropTypes.bool,
 };

@@ -32,8 +32,7 @@ const StartScreen = ({
   startGameEnabled,
   handleChangePlayerName,
   handleToggleShipDirection,
-  handlePlaceShip,
-  handleUnplaceShip,
+  handleBoardClick,
   handleChangeShipSelected,
   handleStartGame,
   compact,
@@ -70,8 +69,7 @@ const StartScreen = ({
         <Board
           editableBoard
           board={board}
-          handlePlaceShip={handlePlaceShip}
-          handleUnplaceShip={handleUnplaceShip}
+          handleBoardClick={handleBoardClick}
         />
       </Grid>
       <Grid item xs={12} md={6}>
@@ -107,8 +105,7 @@ StartScreen.propTypes = {
   startGameEnabled: PropTypes.bool.isRequired,
   handleChangePlayerName: PropTypes.func.isRequired,
   handleToggleShipDirection: PropTypes.func.isRequired,
-  handlePlaceShip: PropTypes.func.isRequired,
-  handleUnplaceShip: PropTypes.func.isRequired,
+  handleBoardClick: PropTypes.func.isRequired,
   handleChangeShipSelected: PropTypes.func.isRequired,
   handleStartGame: PropTypes.func.isRequired,
   compact: PropTypes.bool,
