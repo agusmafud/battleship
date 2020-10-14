@@ -47,7 +47,7 @@ export default function reducer(state = initialState, action) {
       const newAttackBoard = createEmptyBoard(true);
       const newAttackShips = createShipsInitialSetting();
       return {
-        targetedCoordinates: null,
+        targetedCoordinates: [],
         board: undefined,
         ships: undefined,
         attackBoard: newAttackBoard,

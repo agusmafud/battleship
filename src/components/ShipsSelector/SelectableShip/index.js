@@ -2,6 +2,12 @@ import React from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Typography from '@material-ui/core/Typography';
+
 import {
   SHIP_HORIZONTAL,
   SHIP_VERTICAL,
@@ -10,6 +16,7 @@ import {
   shipPropTypes,
 } from 'utils/propTypesConstants';
 import rotateIcon from 'assets/rotate.svg';
+import { rotateShipMessage } from 'utils/messages';
 import './styles.scss';
 
 const SelectableShip = ({
@@ -18,7 +25,7 @@ const SelectableShip = ({
   selected,
   handleChangeShipSelected,
 }) => (
-  <div
+  <Card
     className={cn(
       'ship',
       {
@@ -41,11 +48,32 @@ const SelectableShip = ({
     >
       <img
         src={rotateIcon}
-        alt="Rotate"
+        alt={rotateShipMessage}
+        title={rotateShipMessage}
       />
     </div>
-    <span>{`${ship.type}: ${ship.spacesLeft} spaces`}</span>
-  </div>
+    <CardActionArea>
+      <CardMedia
+        classes={{ img: 'ship__asset' }}
+        component="img"
+        alt={`${ship.type}: ${ship.spacesLeft} spaces`}
+        height="50"
+        image={ship.asset}
+        title={`${ship.type}: ${ship.spacesLeft} spaces`}
+      />
+      <CardContent>
+        <Typography
+          className="ship__title"
+          variant="h5"
+        >
+          {ship.type}
+        </Typography>
+        <Typography variant="subtitle1" color="textSecondary">
+          {`${ship.spacesLeft} spaces`}
+        </Typography>
+      </CardContent>
+    </CardActionArea>
+  </Card>
 );
 
 SelectableShip.propTypes = {

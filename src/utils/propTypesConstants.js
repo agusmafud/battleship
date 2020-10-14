@@ -63,6 +63,7 @@ export const shipPropTypes = PropTypes.shape({
   spacesLeft: PropTypes.number.isRequired,
   spacesAssigned: PropTypes.arrayOf(coordinatePropTypes).isRequired,
   status: shipStatusPropTypes.isRequired,
+  asset: PropTypes.string.isRequired,
 });
 
 export const activeScreenPropTypes = PropTypes.oneOf(

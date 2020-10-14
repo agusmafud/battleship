@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import {
   boardPropTypes,
@@ -13,6 +14,14 @@ import ShipsSelector from 'components/ShipsSelector';
 import PlayerNameInput from 'components/PlayerNameInput';
 import StartGameCta from 'components/StartGameCta';
 
+import {
+  gameWelcomeMessage,
+  instructionShip1Message,
+  instructionShip2Message,
+  instructionShip3Message,
+  instructionNameMessage,
+  startGameMessage,
+} from 'utils/messages';
 import './styles.scss';
 
 const StartScreen = ({
@@ -30,7 +39,10 @@ const StartScreen = ({
   compact,
 }) => (
   <Layout
-    className="start-screen"
+    className={cn(
+      'start-screen',
+      { 'start-screen--compact': compact },
+    )}
     compact={compact}
   >
     <Grid container>
@@ -39,9 +51,22 @@ const StartScreen = ({
         item
         xs={12}
       >
-        <Instructions shipsPlaced={!shipsUnplaced.length} />
+        <Instructions
+          title={gameWelcomeMessage}
+          instructions={
+            shipsUnplaced.length
+              ? [instructionShip1Message, instructionShip2Message, instructionShip3Message]
+              : [instructionNameMessage]
+          }
+          compact={compact}
+        />
       </Grid>
-      <Grid item xs={12} sm={6}>
+      <Grid
+        className="start-screen__board-container"
+        item
+        xs={12}
+        md={6}
+      >
         <Board
           editableBoard
           board={board}
@@ -49,23 +74,26 @@ const StartScreen = ({
           handleUnplaceShip={handleUnplaceShip}
         />
       </Grid>
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12} md={6}>
         <ShipsSelector
           shipsUnplaced={shipsUnplaced}
           handleToggleShipDirection={handleToggleShipDirection}
           shipSelectedId={shipSelectedId}
           handleChangeShipSelected={handleChangeShipSelected}
         />
-        <div className="start-screen__start-game-container">
-          <PlayerNameInput
-            playerName={playerName}
-            handleChangePlayerName={handleChangePlayerName}
-          />
-          <StartGameCta
-            handleStartGame={handleStartGame}
-            startGameEnabled={startGameEnabled}
-          />
-        </div>
+        {!shipsUnplaced.length && (
+          <div className="start-screen__start-game-container">
+            <PlayerNameInput
+              playerName={playerName}
+              handleChangePlayerName={handleChangePlayerName}
+            />
+            <StartGameCta
+              handleStartGame={handleStartGame}
+              startGameEnabled={startGameEnabled}
+              text={startGameMessage}
+            />
+          </div>
+        )}
       </Grid>
     </Grid>
   </Layout>

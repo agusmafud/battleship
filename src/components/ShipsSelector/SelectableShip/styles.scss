@@ -1,28 +1,35 @@
+@import 'global-styles/_colors.scss';
+
 .ship {
   cursor: pointer;
-  width: 100px;
-  height: 100px;
+  width: 160px;
+  min-height: 140px;
   position: relative;
-  box-sizing: border-box;
   margin: 16px;
-  padding: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #fff;
-  border-radius: 6px;
-  box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
-  color: #4a4a4a;
 
   &:hover {
-    border: 1px solid #2e93cf;
+    border: 1px solid $color-primary-1;
   }
 
   &__rotate {
+    z-index: 999;
     width: 20px;
     height: 20px;
     position: absolute;
     right: 6px;
+  }
+
+  &__asset {
+    height: 50px;
+    object-fit: contain !important;
+  }
+
+  &__title {
+    overflow-wrap: break-word;
+    text-transform: lowercase;
+    &:first-letter {
+      text-transform: capitalize;
+    }
   }
 
   &--SHIP_HORIZONTAL {
@@ -44,9 +51,9 @@
   }
 
   &--selected {
-    border: 3px solid #2e93cf;
+    border: 3px solid $color-primary-1;
     &:hover {
-      border: 3px solid #2e93cf;
+      border: 3px solid $color-primary-1;
     }
   }
 }

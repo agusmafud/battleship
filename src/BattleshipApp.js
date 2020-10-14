@@ -22,7 +22,7 @@ const BattleshipApp = () => {
     },
   });
   const activeScreen = useSelector((state) => getActiveScreen(state));
-  const compact = useMediaQuery(theme.breakpoints.down('sm'));
+  const compact = useMediaQuery(theme.breakpoints.down('md'));
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

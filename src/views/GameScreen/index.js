@@ -20,34 +20,42 @@ const GameScreen = ({
   handlePlayerMissileAttack,
   handleSurrender,
   compact,
-}) => (
-  <Layout
-    className="game-screen"
-    compact={compact}
-  >
-    <Grid container>
-      <Grid item xs={12} sm={6}>
-        <Board board={player.board} />
+}) => {
+  const {
+    playerAttemptFeedback,
+    computerAttemptFeedback,
+    turn,
+    activePlayer,
+  } = game;
+  return (
+    <Layout
+      className="game-screen"
+      compact={compact}
+    >
+      <Grid container>
+        <Grid item xs={12} md={6}>
+          <Board board={player.board} />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Board
+            computerBoard
+            board={computer.board}
+            handlePlayerMissileAttack={handlePlayerMissileAttack}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <StatusBar
+            playerAttemptFeedback={playerAttemptFeedback}
+            computerAttemptFeedback={computerAttemptFeedback}
+            turn={turn}
+            activePlayer={activePlayer}
+            handleSurrender={handleSurrender}
+          />
+        </Grid>
       </Grid>
-      <Grid item xs={12} sm={6}>
-        <Board
-          computerBoard
-          board={computer.board}
-          handlePlayerMissileAttack={handlePlayerMissileAttack}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <StatusBar
-          playerAttemptFeedback={game.playerAttemptFeedback}
-          computerAttemptFeedback={game.computerAttemptFeedback}
-          turn={game.turn}
-          activePlayer={game.activePlayer}
-          handleSurrender={handleSurrender}
-        />
-      </Grid>
-    </Grid>
-  </Layout>
-);
+    </Layout>
+  );
+}
 
 GameScreen.propTypes = {
   game: gamePropTypes.isRequired,

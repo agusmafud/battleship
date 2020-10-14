@@ -7,6 +7,7 @@ const PlayerNameInput = ({
   handleChangePlayerName,
 }) => (
   <TextField
+    autoFocus
     id="player-name-input"
     label="Enter Player name"
     variant="outlined"

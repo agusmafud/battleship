@@ -8,11 +8,13 @@ import './styles.scss';
 const Layout = ({
   children,
   compact,
+  className,
 }) => (
   <section
     className={cn(
       'layout',
       { 'layout--compact': compact },
+      className,
     )}
   >
     <Card className="layout__card">
@@ -24,10 +26,12 @@ const Layout = ({
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
   compact: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 Layout.defaultProps = {
   compact: false,
+  className: '',
 };
 
 export default Layout;

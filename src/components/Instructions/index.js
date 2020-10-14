@@ -1,39 +1,52 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Typography from '@material-ui/core/Typography';
 
 import './styles.scss';
 
 const Instructions = ({
-  shipsPlaced,
+  title,
+  instructions,
+  compact,
 }) => (
   <div className="instructions">
-    <div className="instructions__title">
-      Welcome to the battleship game!
-    </div>
-    <ul className="instructions__list">
-      {!shipsPlaced ? (
-        <>
-          <li className="instructions__list-item">
-            Click on a ship to select it and then on the board for placing it.
+    { title && (
+      <Typography
+        variant={compact ? 'h5' : 'h4'}
+        component="h1"
+        align="center"
+        gutterBottom
+      >
+        {title}
+      </Typography>
+    )}
+    { instructions && (
+      <ul className="instructions__list">
+        {instructions.map((instruction) => (
+          <li
+            key={instruction}
+            className="instructions__list-item"
+          >
+            <Typography variant="subtitle1">
+              {instruction}
+            </Typography>
           </li>
-          <li className="instructions__list-item">
-            Click on a ship&apos;s rotation icon to change it&apos;s orientation.
-          </li>
-          <li className="instructions__list-item">
-            To remove a ship, click on it&apos;s location on the board
-          </li>
-        </>
-      ) : (
-        <li className="instructions__list-item">
-          Enter your name and press &quot;start&quot; to begin
-        </li>
-      )}
-    </ul>
+        ))}
+      </ul>
+    )}
   </div>
 );
 
 Instructions.propTypes = {
-  shipsPlaced: PropTypes.bool.isRequired,
+  title: PropTypes.string,
+  instructions: PropTypes.arrayOf(PropTypes.string),
+  compact: PropTypes.bool,
+};
+
+Instructions.defaultProps = {
+  title: undefined,
+  instructions: undefined,
+  compact: false,
 };
 
 export default Instructions;
