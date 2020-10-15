@@ -17,6 +17,9 @@
     display: flex;
     flex-direction: column;
   }
+  &__cta-container {
+    margin: 16px 0 0 0;
+  }
 
   &--compact {
     .start-screen {

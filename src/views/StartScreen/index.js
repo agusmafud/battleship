@@ -12,7 +12,7 @@ import Board from 'components/Board';
 import Instructions from 'components/Instructions';
 import ShipsSelector from 'components/ShipsSelector';
 import PlayerNameInput from 'components/PlayerNameInput';
-import StartGameCta from 'components/StartGameCta';
+import ButtonCta from 'components/ButtonCta';
 
 import {
   gameWelcomeMessage,
@@ -78,6 +78,7 @@ const StartScreen = ({
           handleToggleShipDirection={handleToggleShipDirection}
           shipSelectedId={shipSelectedId}
           handleChangeShipSelected={handleChangeShipSelected}
+          compact={compact}
         />
         {!shipsUnplaced.length && (
           <div className="start-screen__start-game-container">
@@ -85,11 +86,13 @@ const StartScreen = ({
               playerName={playerName}
               handleChangePlayerName={handleChangePlayerName}
             />
-            <StartGameCta
-              handleStartGame={handleStartGame}
-              startGameEnabled={startGameEnabled}
-              text={startGameMessage}
-            />
+            <div className="start-screen__cta-container">
+              <ButtonCta
+                handleClick={handleStartGame}
+                disabled={!startGameEnabled}
+                text={startGameMessage}
+              />
+            </div>
           </div>
         )}
       </Grid>

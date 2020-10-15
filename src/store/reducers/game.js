@@ -50,19 +50,19 @@ export default function reducer(state = initialState, action) {
       };
     }
     case PLAYER_MISSILE_LAUNCH: {
-      const { playerAttemptFeedback } = action.payload;
+      const { attemptFeedback } = action.payload;
       return {
         ...state,
-        playerAttemptFeedback,
+        playerAttemptFeedback: attemptFeedback,
         activePlayer: COMPUTER,
       };
     }
     case COMPUTER_MISSILE_LAUNCH: {
-      const { computerAttemptFeedback } = action.payload;
+      const { attemptFeedback } = action.payload;
       const { turn } = state;
       return {
         ...state,
-        computerAttemptFeedback,
+        computerAttemptFeedback: attemptFeedback,
         turn: turn + 1,
         activePlayer: PLAYER,
       };

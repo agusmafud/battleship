@@ -1,6 +1,6 @@
 @import 'global-styles/_colors.scss';
 
-.ship {
+.selectable-ship {
   cursor: pointer;
   width: 160px;
   min-height: 140px;
@@ -8,7 +8,7 @@
   margin: 16px;
 
   &:hover {
-    border: 1px solid $color-primary-1;
+    outline: 1px solid $color-primary-1;
   }
 
   &__rotate {
@@ -34,7 +34,7 @@
 
   &--SHIP_HORIZONTAL {
     transform: rotate(0deg);
-    .ship {
+    .selectable-ship {
       &__rotate {
         top: 6px;
       }
@@ -43,7 +43,7 @@
   
   &--SHIP_VERTICAL {
     transform: rotate(270deg);
-    .ship {
+    .selectable-ship {
       &__rotate {
         bottom: 6px;
       }
@@ -51,9 +51,18 @@
   }
 
   &--selected {
-    border: 3px solid $color-primary-1;
+    outline: 3px solid $color-primary-1;
     &:hover {
-      border: 3px solid $color-primary-1;
+      outline: 3px solid $color-primary-1;
+    }
+  }
+
+  &--compact {
+    width: 114px;
+    min-height: 100px;
+
+    .selectable-ship {
+      height: 30px;
     }
   }
 }

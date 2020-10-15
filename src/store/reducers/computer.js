@@ -36,11 +36,11 @@ export default function reducer(state = initialState, action) {
       };
     }
     case PLAYER_MISSILE_LAUNCH: {
-      const { newComputerBoard, newComputerShips } = action.payload;
+      const { newBoard, newShips } = action.payload;
       return {
         ...state,
-        board: newComputerBoard,
-        ships: newComputerShips,
+        board: newBoard,
+        ships: newShips,
       };
     }
     case RESTART_GAME: {

@@ -68,11 +68,11 @@ export default function reducer(state = initialState, action) {
     }
 
     case COMPUTER_MISSILE_LAUNCH: {
-      const { newPlayerBoard, newPlayerShips } = action.payload;
+      const { newBoard, newShips } = action.payload;
       return {
         ...state,
-        board: newPlayerBoard,
-        ships: newPlayerShips,
+        board: newBoard,
+        ships: newShips,
       };
     }
 

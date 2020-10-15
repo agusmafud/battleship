@@ -316,12 +316,7 @@ const calculateAttack = (attackBoard, attackShips, targetedCoordinates) => {
       if (j < 10) { j += 1; } else { i += 1; j = 0; }
     }
   });
-  const spaceCoordinates = { i: attack.coordinate.i, j: attack.coordinate.j };
-  // eslint-disable-next-line no-console
-  console.log('Heatmap:');
-  // eslint-disable-next-line no-console
-  console.log(attack);
-  return spaceCoordinates;
+  return { i: attack.coordinate.i, j: attack.coordinate.j };
 };
 
 const filterCoordinates = (coordinates, filterItems) => (
@@ -329,8 +324,8 @@ const filterCoordinates = (coordinates, filterItems) => (
 );
 
 export const launchComputerMissile = (
-  playerBoard,
-  playerShips,
+  board,
+  ships,
   targetedCoordinates,
   attackBoard,
   attackShips,
@@ -340,9 +335,9 @@ export const launchComputerMissile = (
     attemptFeedback,
     alteredCoordinates,
     newShips,
-  } = hitShipsByCoordinate(playerShips, spaceCoordinates);
+  } = hitShipsByCoordinate(ships, spaceCoordinates);
 
-  const newBoard = updateBoard(playerBoard, alteredCoordinates, attemptFeedback.status);
+  const newBoard = updateBoard(board, alteredCoordinates, attemptFeedback.status);
   const newTargetedCoordinates = (
     attemptFeedback.status === DESTROYED_SHIP_SPACE
       ? filterCoordinates(targetedCoordinates, alteredCoordinates)

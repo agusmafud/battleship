@@ -16,7 +16,11 @@ import {
   shipPropTypes,
 } from 'utils/propTypesConstants';
 import rotateIcon from 'assets/rotate.svg';
-import { rotateShipMessage } from 'utils/messages';
+import {
+  rotateShipMessage,
+  generateSelectableShipTitle,
+  generateSelectableShipSpacesMessage,
+} from 'utils/messages';
 import './styles.scss';
 
 const SelectableShip = ({
@@ -24,23 +28,26 @@ const SelectableShip = ({
   handleToggleShipDirection,
   selected,
   handleChangeShipSelected,
+  compact,
 }) => (
   <Card
     className={cn(
-      'ship',
+      'selectable-ship',
       {
-        [`ship--${SHIP_HORIZONTAL}`]: ship.direction === SHIP_HORIZONTAL,
-        [`ship--${SHIP_VERTICAL}`]: ship.direction === SHIP_VERTICAL,
-        'ship--selected': selected,
+        [`selectable-ship--${SHIP_HORIZONTAL}`]: ship.direction === SHIP_HORIZONTAL,
+        [`selectable-ship--${SHIP_VERTICAL}`]: ship.direction === SHIP_VERTICAL,
+        'selectable-ship--selected': selected,
+        'selectable-ship--compact': compact,
       },
     )}
+    square
     role="button"
     tabIndex={0}
     onClick={() => handleChangeShipSelected(ship.id)}
     onKeyPress={() => handleChangeShipSelected(ship.id)}
   >
     <div
-      className="ship__rotate"
+      className="selectable-ship__rotate"
       role="button"
       tabIndex={0}
       onClick={() => handleToggleShipDirection(ship.id)}
@@ -54,22 +61,22 @@ const SelectableShip = ({
     </div>
     <CardActionArea>
       <CardMedia
-        classes={{ img: 'ship__asset' }}
+        classes={{ img: 'selectable-ship__asset' }}
         component="img"
-        alt={`${ship.type}: ${ship.spacesLeft} spaces`}
-        height="50"
+        alt={generateSelectableShipTitle(ship)}
+        title={generateSelectableShipTitle(ship)}
+        height={compact ? '30' : '50'}
         image={ship.asset}
-        title={`${ship.type}: ${ship.spacesLeft} spaces`}
       />
       <CardContent>
         <Typography
-          className="ship__title"
-          variant="h5"
+          className="selectable-ship__title"
+          variant={compact ? 'subtitle1' : 'h5'}
         >
           {ship.type}
         </Typography>
         <Typography variant="subtitle1" color="textSecondary">
-          {`${ship.spacesLeft} spaces`}
+          {generateSelectableShipSpacesMessage(ship)}
         </Typography>
       </CardContent>
     </CardActionArea>
@@ -81,10 +88,12 @@ SelectableShip.propTypes = {
   handleToggleShipDirection: PropTypes.func.isRequired,
   selected: PropTypes.bool,
   handleChangeShipSelected: PropTypes.func.isRequired,
+  compact: PropTypes.bool,
 };
 
 SelectableShip.defaultProps = {
   selected: false,
+  compact: false,
 };
 
 export default SelectableShip;

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import { shipPropTypes } from 'utils/propTypesConstants';
 
@@ -11,8 +12,14 @@ const ShipsSelector = ({
   handleToggleShipDirection,
   shipSelectedId,
   handleChangeShipSelected,
+  compact,
 }) => (
-  <div className="ships-selector">
+  <div
+    className={cn(
+      'ships-selector',
+      { 'ships-selector--compact': compact },
+    )}
+  >
     {shipsUnplaced.sort((a, b) => b.spacesLeft - a.spacesLeft).map((ship) => (
       <SelectableShip
         key={ship.id}
@@ -20,6 +27,7 @@ const ShipsSelector = ({
         handleToggleShipDirection={handleToggleShipDirection}
         selected={!(shipSelectedId === undefined) && ship.id === shipSelectedId}
         handleChangeShipSelected={handleChangeShipSelected}
+        compact={compact}
       />
     ))}
   </div>
@@ -30,10 +38,12 @@ ShipsSelector.propTypes = {
   handleToggleShipDirection: PropTypes.func.isRequired,
   shipSelectedId: PropTypes.number,
   handleChangeShipSelected: PropTypes.func.isRequired,
+  compact: PropTypes.bool,
 };
 
 ShipsSelector.defaultProps = {
   shipSelectedId: undefined,
+  compact: false,
 };
 
 export default ShipsSelector;
