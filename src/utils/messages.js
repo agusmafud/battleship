@@ -2,6 +2,9 @@ import {
   HIT_SHIP_SPACE,
   DESTROYED_SHIP_SPACE,
   SHOT_MISSED_SPACE,
+  PLAYER_WON,
+  PLAYER_LOST,
+  PLAYER_SURRENDERED,
 } from 'utils/constants';
 
 export const gameWelcomeMessage = 'Welcome to battleship!';
@@ -26,3 +29,10 @@ export const generateAttemptFeedback = (attemptFeedback, playerName) => {
   return `${playerName} ${correspondingStatusMessage[status]} ${sunkenShip !== null ? `(${sunkenShip}) ` : ''}at { x: ${coordinate.j + 1}, y: ${10 - coordinate.i} }.`;
 };
 export const generateTurnMessage = (turn) => `Turn: ${turn}`;
+export const correspondingGameResultImageTitle = {
+  [PLAYER_WON]: 'You win',
+  [PLAYER_LOST]: 'You lose',
+  [PLAYER_SURRENDERED]: 'You surrendered',
+};
+export const generateGameResultMessage = (result, turn) => `${correspondingGameResultImageTitle[result]} at turn ${turn}.`;
+export const restartGameMessage = 'Restart game';

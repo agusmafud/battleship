@@ -1,9 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Typography from '@material-ui/core/Typography';
 
-import { gameResultPropTypes } from 'utils/propTypesConstants';
 import Layout from 'components/Layout';
-import Button from '@material-ui/core/Button';
+import ButtonCta from 'components/ButtonCta';
+import { gameResultPropTypes } from 'utils/propTypesConstants';
+import { PLAYER_WON } from 'utils/constants';
+import {
+  correspondingGameResultImageTitle,
+  generateGameResultMessage,
+  restartGameMessage,
+} from 'utils/messages';
+import winImg from 'assets/win.png';
+import loseImg from 'assets/lose.png';
+import './styles.scss';
 
 const EndGameScreen = ({
   result,
@@ -12,19 +22,30 @@ const EndGameScreen = ({
   compact,
 }) => (
   <Layout
-    className="start-screen"
+    className="end-game-screen"
     compact={compact}
   >
-    <p>{result}</p>
-    <p>{turn}</p>
-    <Button
-      variant="contained"
-      size="large"
-      color="primary"
-      onClick={handleRestartGame}
+    <div
+      className="end-game-screen__container"
     >
-      Start game
-    </Button>
+      <img
+        className="end-game-screen__image"
+        src={result === PLAYER_WON ? winImg : loseImg}
+        alt={correspondingGameResultImageTitle[result]}
+        title={correspondingGameResultImageTitle[result]}
+      />
+      <Typography
+        variant={compact ? 'h5' : 'h4'}
+        align="center"
+        gutterBottom
+      >
+        {generateGameResultMessage(result, turn - 1)}
+      </Typography>
+      <ButtonCta
+        handleClick={handleRestartGame}
+        text={restartGameMessage}
+      />
+    </div>
   </Layout>
 );
 
