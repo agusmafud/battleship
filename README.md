@@ -1,4 +1,4 @@
-# Todo App
+# Battleship game webapp
 Simplified React version of the battleship game, player vs CPU.
 ### Live Demo: [https://agusmafud.github.io/todoapp/](https://agusmafud.github.io/battleship/)
 
