@@ -17,11 +17,12 @@ Simplified React version of the battleship game, player vs CPU.
 For the computer's attack algorithm, a density map is determined that indicates for each space on the board the probability that it contains some player's ship.
 This is done by repeating this process for each remaining player ship:
 >  We start in the top left corner, and try placing it horizontally. If it fits, we increment a value for each cell it lays over as a 'possible location' in which there could a ship. Then we try sliding it over one square and repeating … and so on until we reach the end of the row. Then we move down a line and repeat. Next we repeat the exercise with the ship oriented vertically.
-If the computer hits a ship, it goes into hunting mode; limiting the possible attacks, to locations that may contain a player's ship, but also one or more of the hit spaces.ç
-You can learn more about the algorithm at the following source: http://www.datagenetics.com/blog/december32011/
+> You can learn more about the algorithm at the following source: http://www.datagenetics.com/blog/december32011/
+If the computer hits a ship, it goes into hunting mode; limiting the possible attacks, to locations that may contain a player's ship, but also one or more of the hit spaces.
+
 
 ## Future improvements
-**attack algorithm:**
+**Attack algorithm:**
 - Randomly choose from the highest scoring heatmap positions.
 - Also consider positions with less probability, for example introducing an acceptable risk variable that increases with each failed attack.
 
