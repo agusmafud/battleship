@@ -10,11 +10,13 @@
   flex-wrap: wrap;
 
   &__ship-on {
+    object-fit: contain;
     width: 70px;
     margin: 0 8px;
     filter: none;
   }
   &__ship-off {
+    object-fit: contain;
     width: 70px;
     margin: 0 8px;
     filter: grayscale(100%);
@@ -22,7 +24,11 @@
 
   &--compact {
     .ships-status {
-      &__ship {
+      &__ship-on {
+        width: 40px;
+        margin: 0 4px;
+      }
+      &__ship-off {
         width: 40px;
         margin: 0 4px;
       }
