@@ -25,6 +25,10 @@ describe('the initial screen', () => {
     );
   });
 
+  afterEach(() => {
+    wrapped.unmount();
+  });
+
   it('shows an initial board with 100 empty spaces', () => {
     expect(wrapped.find(BoardSpace).length).toEqual(100);
     expect(wrapped.find('.board-space--EMPTY_SPACE').length).toEqual(100);

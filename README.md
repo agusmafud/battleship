@@ -21,8 +21,6 @@ This is done by repeating this process for each remaining player ship:
 If the computer hits a ship, it goes into hunting mode; limiting the possible attacks, to locations that may contain a player's ship, but also one or more of the hit spaces.
 You can learn more about the algorithm at the following source: http://www.datagenetics.com/blog/december32011/
 
-
-
 ## Future improvements
 **Attack algorithm:**
 - Randomly choose from the highest scoring heatmap positions.

@@ -11,6 +11,7 @@
   justify-content: flex-start;
 
   &__card {
+    width: auto;
     max-width: 1200px;
     display: flex;
     flex-direction: row;
@@ -23,6 +24,7 @@
   &--compact {
     .layout {
       &__card {
+        width: 90%;
         flex-wrap: wrap;
         padding: 16px;
       }
