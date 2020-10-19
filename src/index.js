@@ -1,20 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import reducer from './store/reducers';
-import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from 'serviceWorker';
 
-import App from './BattleshipApp';
-
-const store = createStore(reducer, composeWithDevTools());
+import Root from 'Root';
+import BattleshipApp from 'BattleshipApp';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <Root>
+      <BattleshipApp />
+    </Root>
   </React.StrictMode>,
   // eslint-disable-next-line no-undef
   document.getElementById('root'),
