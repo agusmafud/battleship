@@ -14,7 +14,7 @@ Simplified React version of the battleship game, player vs CPU.
 - **Each player performs only one attack per turn**
 
 ## Computer attack algorithm
-For the computer's attack algorithm, a density map is determined that indicates for each space on the board the probability that it contains some player's ship.
+For the computer's attack algorithm, a density map is determined that indicates for each space on the board the probability of containing a player's ship.
 This is done by repeating this process for each remaining player ship:
 >  We start in the top left corner, and try placing it horizontally. If it fits, we increment a value for each cell it lays over as a 'possible location' in which there could a ship. Then we try sliding it over one square and repeating … and so on until we reach the end of the row. Then we move down a line and repeat. Next we repeat the exercise with the ship oriented vertically.
 
